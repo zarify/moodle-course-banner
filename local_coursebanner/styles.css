@@ -1,0 +1,42 @@
+.local-coursebanner {
+  margin: 0;
+  width: 100%;
+}
+
+.local-coursebanner__image {
+  width: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 0;
+}
+
+/* When in page-header, adjust spacing */
+#page-header .local-coursebanner {
+  margin-bottom: 0;
+}
+
+/* Trash icon button for clearing URL fields (uses FontAwesome) */
+.local-coursebanner-field-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.local-coursebanner-clear-btn {
+  cursor: pointer;
+  color: #dc3545;
+  font-size: 1.2em;
+  padding: 4px 8px;
+  border: none;
+  background: transparent;
+  transition: opacity 0.2s;
+}
+
+.local-coursebanner-clear-btn:hover {
+  opacity: 0.7;
+}
+
+.local-coursebanner-clear-btn:focus {
+  outline: 2px solid #0f6cbf;
+  outline-offset: 2px;
+}
