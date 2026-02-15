@@ -13,7 +13,7 @@
 - Behat config in `config.php` (`$CFG->behat_dataroot`, `$CFG->behat_prefix`) and a configured WebDriver/Selenium profile.
 
 ## Run PHPUnit
-From the Moodle root (e.g. `/Applications/MAMP/htdocs/moodle405`):
+From the Moodle root.
 
 ```bash
 php admin/tool/phpunit/cli/util.php --install
@@ -28,6 +28,4 @@ From the Moodle root:
 ```bash
 php admin/tool/behat/cli/util.php --enable
 php admin/tool/behat/cli/run.php --tags="@local_coursebanner"
-# or
-php admin/tool/behat/cli/run.php --feature=/Applications/MAMP/htdocs/moodle405/local/coursebanner/tests/behat/course_banners.feature
 ```
