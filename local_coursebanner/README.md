@@ -54,3 +54,18 @@ Example: 2000×316px
 - Avoid critical content within 50–60px of the top or bottom edges—these will be cropped
 - Decorative elements can extend to the full image boundaries
 - Since the banner displays at 80px height, design for that constraint (content within the center 200–210px vertically will display clearly)
+
+## Build and package
+
+From the repository root, run:
+
+```bash
+./build_plugin.sh
+```
+
+This will:
+
+1. Minify AMD JavaScript from `amd/src/*.js` into `amd/build/*.min.js`
+2. Create `local_coursebanner.zip` ready for installation
+
+`zip_plugin.sh` remains available and now calls the same build pipeline.
