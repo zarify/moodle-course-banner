@@ -31,6 +31,12 @@ $categories = core_course_category::make_categories_list();
 $current = $DB->get_records_menu('local_coursebanner_cat', null, '', 'categoryid,imageurl');
 
 if (data_submitted() && confirm_sesskey()) {
+    $bannerheight = optional_param('bannerheight', 80, PARAM_INT);
+    if ($bannerheight < 40) {
+        $bannerheight = 80;
+    }
+    set_config('bannerheight', $bannerheight, 'local_coursebanner');
+
     $defaulturl = clean_param(optional_param('defaulturl', '', PARAM_RAW_TRIMMED), PARAM_URL);
     set_config('defaulturl', $defaulturl, 'local_coursebanner');
 
@@ -73,6 +79,10 @@ if (data_submitted() && confirm_sesskey()) {
     redirect(new moodle_url('/local/coursebanner/manage.php'), get_string('changessaved'));
 }
 
+$bannerheight = (int)get_config('local_coursebanner', 'bannerheight');
+if ($bannerheight < 40) {
+    $bannerheight = 80;
+}
 $defaulturl = get_config('local_coursebanner', 'defaulturl');
 
 $PAGE->set_url(new moodle_url('/local/coursebanner/manage.php'));
@@ -88,6 +98,19 @@ echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'sesskey', '
 echo html_writer::start_div('local-coursebanner-settings');
 
 echo html_writer::tag('p', get_string('managebanners_desc', 'local_coursebanner'));
+
+echo html_writer::start_div('local-coursebanner-height');
+echo html_writer::tag('label', get_string('bannerheight', 'local_coursebanner'), ['for' => 'bannerheight']);
+echo html_writer::empty_tag('input', [
+    'type' => 'number',
+    'id' => 'bannerheight',
+    'name' => 'bannerheight',
+    'value' => $bannerheight,
+    'min' => 40,
+    'step' => 1
+]);
+echo html_writer::tag('div', get_string('bannerheight_desc', 'local_coursebanner'), ['class' => 'form-text text-muted']);
+echo html_writer::end_div();
 
 echo html_writer::start_div('local-coursebanner-default');
 echo html_writer::tag('label', get_string('defaulturl', 'local_coursebanner'), ['for' => 'defaulturl']);

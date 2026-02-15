@@ -28,9 +28,8 @@ Due to the directory restructure in Moodle 5.1, install by placing this folder i
 
 ## Configuration
 
-1. Set an optional default banner URL in **Site administration → Plugins → Local plugins → Course banners**.
-2. Define category and subcategory banner URLs in **Site administration → Plugins → Local plugins → Manage course banners**.
-3. Optionally override per course in **Course settings → Course banner image URL**.
+1. Set the global banner height, optional default banner URL, and category/subcategory banner URLs in **Site administration → Plugins → Local plugins → Manage course banners**.
+2. Optionally override per course in **Course settings → Course banner image URL**.
 
 ### Resolution order
 

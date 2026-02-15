@@ -17,24 +17,6 @@
 defined('MOODLE_INTERNAL') || die();
 
 if ($hassiteconfig) {
-    $settings = new admin_settingpage('local_coursebanner', get_string('pluginname', 'local_coursebanner'));
-    $settings->add(new \local_coursebanner\admin_setting_configtext_with_clear(
-        'local_coursebanner/defaulturl',
-        get_string('defaulturl', 'local_coursebanner'),
-        get_string('defaulturl_desc', 'local_coursebanner'),
-        '',
-        PARAM_URL,
-        80
-    ));
-    $settings->add(new admin_setting_configtext(
-        'local_coursebanner/bannerheight',
-        get_string('bannerheight', 'local_coursebanner'),
-        get_string('bannerheight_desc', 'local_coursebanner'),
-        '80',
-        PARAM_INT
-    ));
-    $ADMIN->add('localplugins', $settings);
-
     $ADMIN->add('localplugins', new admin_externalpage(
         'local_coursebanner_manage',
         get_string('managebanners', 'local_coursebanner'),

@@ -27,11 +27,11 @@ $string['defaulturl_desc'] = 'Used when neither a course override nor a category
 $string['bannerheight'] = 'Banner height (pixels)';
 $string['bannerheight_desc'] = 'Height of banner images in pixels. Must be at least 40px to accommodate the course title overlay. Default is 80px.';
 $string['managebanners'] = 'Manage course banners';
-$string['managebanners_desc'] = 'Set banner image URLs for categories. Course-specific overrides are configured in course settings.';
+$string['managebanners_desc'] = 'Set the global banner height and default URL, plus banner image URLs for categories. Course-specific overrides are configured in course settings.';
 $string['categorybannerurl'] = 'Category banner image URL';
 
 // Capabilities.
-$string['coursebanner:manage'] = 'Manage category and default banners';
+$string['coursebanner:manage'] = 'Manage global and category banners';
 $string['coursebanner:edit'] = 'Edit course banner overrides';
 
 // Privacy.
