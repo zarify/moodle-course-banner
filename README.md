@@ -2,6 +2,8 @@
 
 A Moodle local plugin that displays customizable banner images on course pages.
 
+![An example banner](img/banner-plugin-example-output.png)
+
 ## Compatibility
 
 **Supported Moodle versions:** 4.5 (LTS), 5.0, 5.1
@@ -28,8 +30,14 @@ Due to the directory restructure in Moodle 5.1, install by placing this folder i
 
 ## Configuration
 
+![Banner plugin settings in Plugins administration](img/banner-plugin-plugins.png)
+
 1. Set the global banner height, optional default banner URL, and category/subcategory banner URLs in **Site administration → Plugins → Local plugins → Manage course banners**.
 2. Optionally override per course in **Course settings → Course banner image URL**.
+
+![Plugin configuration, detecting categories](img/banner-plugin-config.png)
+
+![Override URL in course settings](img/banner-plugin-course-override.png)
 
 ### Resolution order
 
