@@ -8,25 +8,10 @@ A Moodle local plugin that displays customizable banner images on course pages.
 
 **Supported Moodle versions:** 4.5 (LTS), 5.0, 5.1
 
-- Moodle 4.5.x (LTS) - Full support
-- Moodle 5.0.x - Full support  
-- Moodle 5.1.x - Full support (see installation notes below)
-
-**Requirements:**
-- PHP 8.1+ (Moodle 4.5) or PHP 8.2+ (Moodle 5.0+)
-- PostgreSQL 13+, MySQL 8.0+, or MariaDB 10.6.7+ (Moodle 4.5)
-- PostgreSQL 14+, MySQL 8.4+, or MariaDB 10.11.0+ (Moodle 5.0)
-- PostgreSQL 15+ (Moodle 5.1)
-
 ## Installation
-
-### Moodle 4.5 and 5.0
-Install by placing this folder in `<moodle>/local/coursebanner` and visiting the Site administration notifications page.
-
-### Moodle 5.1
-Due to the directory restructure in Moodle 5.1, install by placing this folder in `<moodle>/public/local/coursebanner` and visiting the Site administration notifications page.
-
-**Note:** If upgrading an existing installation from 4.5/5.0 to 5.1, you will need to move the plugin folder from `<moodle>/local/coursebanner` to `<moodle>/public/local/coursebanner` after the Moodle upgrade. See the UPGRADE.md file for detailed instructions.
+Either build a release using the shell script or download a zip release
+from [releases](https://github.com/zarify/moodle-course-banner/releases)
+and install the plugin zip via the Site Administration Plugins interface.
 
 ## Configuration
 
