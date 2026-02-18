@@ -17,8 +17,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'local_coursebanner';
-$plugin->version = 2026021600;
+$plugin->version = 2026021800;
 $plugin->requires = 2024100700; // Moodle 4.5.0 (LTS).
 $plugin->supported = [405, 501]; // Moodle 4.5.x - 5.1.x.
 $plugin->maturity = MATURITY_STABLE;
-$plugin->release = '1.2.1';
+$plugin->release = '1.3.0';

@@ -16,11 +16,18 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-if ($hassiteconfig) {
-    $ADMIN->add('localplugins', new admin_externalpage(
+if (has_capability('local/coursebanner:manage', context_system::instance())) {
+    $parent = 'localplugins';
+    if (!$ADMIN->locate($parent)) {
+        $parent = 'courses';
+    }
+
+    if ($ADMIN->locate($parent)) {
+        $ADMIN->add($parent, new admin_externalpage(
         'local_coursebanner_manage',
         get_string('managebanners', 'local_coursebanner'),
         new moodle_url('/local/coursebanner/manage.php'),
         'local/coursebanner:manage'
-    ));
+        ));
+    }
 }

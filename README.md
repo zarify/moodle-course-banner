@@ -24,6 +24,24 @@ and install the plugin zip via the Site Administration Plugins interface.
 
 ![Override URL in course settings](img/banner-plugin-course-override.png)
 
+### Permissions and admin navigation (4.5 vs 5.x)
+
+The plugin uses these capabilities:
+
+- `local/coursebanner:manage` (system context): access to the main **Manage course banners** page.
+- `local/coursebanner:edit` (course context): ability to set per-course override URL in course settings.
+
+To grant access to non-admin users:
+
+1. Go to **Site administration → Users → Permissions → Define roles**.
+2. Allow `local/coursebanner:manage` for the target role.
+3. Assign that role at system level (**Site administration → Users → Permissions → Assign system roles**).
+
+Navigation differences by Moodle version:
+
+- **Moodle 4.5:** users without `moodle/site:config` may not see **Plugins → Local plugins**. This plugin places **Manage course banners** under **Courses** for users who have `local/coursebanner:manage` but not full site config.
+- **Moodle 5.0 and 5.1:** the **Local plugins** category is available in the plugins tree for delegated access, so users with `local/coursebanner:manage` can access **Manage course banners** from **Plugins → Local plugins**.
+
 ### Resolution order
 
 1. Course override (if set)
