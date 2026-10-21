@@ -6,11 +6,12 @@ A Moodle local plugin that displays customizable banner images on course pages.
 
 ## Compatibility
 
-**Supported Moodle versions:** 4.5 (LTS) – 5.3, declared as `$plugin->supported = [405, 503]`.
+**Supported Moodle versions:** 4.5 (LTS) – 6.0, declared as `$plugin->supported = [405, 600]`.
 
-Moodle 5.3 (LTS) was verified with the plugin's PHPUnit suite, its Behat suite
+Moodle 6.0dev was verified with the plugin's PHPUnit suite (11 tests), its Behat suite
 (`--tags=@local_coursebanner`) and a browser smoke test covering the settings page, category
-and per-course banner resolution, and the course-form override field.
+and per-course banner resolution, and the course-form override field. Moodle 5.3 (LTS) remains
+covered by the same suites.
 
 ## Installation
 Either build a release using the shell script or download a zip release
