@@ -27,6 +27,12 @@ class banner_resolver_test extends advanced_testcase {
     protected function setUp(): void {
         parent::setUp();
         $this->resetAfterTest(true);
+        // Banners are resolved for a viewer: the category lookup goes through
+        // core_course_category::get(), which filters by moodle/category:viewcourselist. The
+        // not-logged-in user has no roles, so from Moodle 5.2 (where forcelogin defaults to on)
+        // that user sees no categories and every category assertion would resolve to the
+        // default. Resolve as a viewer who can see the categories under test.
+        $this->setAdminUser();
         $this->reset_resolver_cache();
     }
 
@@ -149,14 +155,8 @@ class banner_resolver_test extends advanced_testcase {
     }
 
     private function reset_resolver_cache(): void {
-        $ref = new \ReflectionClass(banner_resolver::class);
-
-        $coursecache = $ref->getProperty('coursecache');
-        $coursecache->setAccessible(true);
-        $coursecache->setValue(null, []);
-
-        $categorycache = $ref->getProperty('categorycache');
-        $categorycache->setAccessible(true);
-        $categorycache->setValue(null, null);
+        // Clears the static caches and purges the resolvedbanners MUC store, so each step sees
+        // the database state written by the test rather than a value cached by an earlier one.
+        banner_resolver::invalidate_all_cache();
     }
 }
