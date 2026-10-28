@@ -52,6 +52,16 @@ Navigation differences by Moodle version:
 1. Course override (if set)
 2. Closest category banner (walks up to parent categories)
 3. Default banner URL
+
+### Display
+
+The banner is only inserted into the page header once its image has actually loaded. If a
+configured URL fails (404, offline host, blocked network), the course header is left exactly as
+core renders it — no empty banner strip and no recoloured title.
+
+When a banner does render, the course title is drawn in white over a dark gradient scrim, which
+guarantees at least 5.7:1 contrast for the title text regardless of the image behind it.
+
 ## Banner Image Specifications
 
 The banner image is displayed at a centrally configurable height (default 80px) with full page width, using CSS `object-fit: cover`.

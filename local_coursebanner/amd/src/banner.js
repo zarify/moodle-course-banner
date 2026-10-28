@@ -26,7 +26,7 @@ define([], function() {
         init: function(bannerHeight) {
             // Default to 80px if not provided
             bannerHeight = bannerHeight || 80;
-            
+
             // Wait for DOM to be ready
             if (document.readyState === 'loading') {
                 document.addEventListener('DOMContentLoaded', function() {
@@ -35,20 +35,38 @@ define([], function() {
             } else {
                 buildBanner(bannerHeight);
             }
-            
+
             function buildBanner(height) {
                 var bannerImg = document.getElementById('local-coursebanner-img');
                 var pageHeader = document.querySelector('#page-header .w-100');
                 var contextHeader = document.querySelector('#page-header .page-context-header');
-                
+
                 if (!bannerImg || !pageHeader || !contextHeader) {
                     return;
                 }
-                
+
+                // Only assemble the banner once the image has actually rendered. A configured
+                // URL whose image 404s / is offline must leave the core course header alone.
+                if (bannerImg.complete) {
+                    if (bannerImg.naturalWidth > 0) {
+                        assembleBanner(bannerImg, pageHeader, contextHeader, height);
+                    }
+                    return;
+                }
+                bannerImg.addEventListener('load', function() {
+                    if (bannerImg.naturalWidth > 0) {
+                        assembleBanner(bannerImg, pageHeader, contextHeader, height);
+                    }
+                }, {once: true});
+                // No 'error' handler: the template keeps the image display:none and the
+                // course header is left exactly as core renders it.
+            }
+
+            function assembleBanner(bannerImg, pageHeader, contextHeader, height) {
                 // Check if we're viewing a section (single section view)
-                var isSectionView = document.querySelector('.single-section') !== null || 
+                var isSectionView = document.querySelector('.single-section') !== null ||
                                    document.querySelector('#single_section_tiles') !== null;
-                
+
                 // Create banner container
                 var container = document.createElement('div');
                 container.className = 'coursebanner-container';
@@ -56,13 +74,13 @@ define([], function() {
                 container.style.height = height + 'px';
                 container.style.overflow = 'hidden';
                 container.style.marginBottom = '10px';
-                
+
                 // Style the banner image
                 bannerImg.style.display = 'block';
                 bannerImg.style.width = '100%';
                 bannerImg.style.height = height + 'px';
                 bannerImg.style.objectFit = 'cover';
-                
+
                 // Create title overlay
                 var titleOverlay = document.createElement('div');
                 titleOverlay.className = 'coursebanner-title-overlay';
@@ -71,52 +89,28 @@ define([], function() {
                 titleOverlay.style.transform = 'translateY(-50%)';
                 titleOverlay.style.left = '50px';
                 titleOverlay.style.right = '20px';
-                
+
                 // Move context header into overlay
                 contextHeader.parentNode.removeChild(contextHeader);
                 titleOverlay.appendChild(contextHeader);
-                
-                // Style the title
+
+                // A section view shows the section name in the heading; show the course name.
                 var h1 = contextHeader.querySelector('h1');
-                if (h1) {
-                    // If viewing a section, replace section name with course name
-                    if (isSectionView) {
-                        // Get course name from breadcrumb
-                        var breadcrumbCourseLink = document.querySelector('.breadcrumb .breadcrumb-item a[title]');
-                        if (breadcrumbCourseLink) {
-                            var courseName = breadcrumbCourseLink.getAttribute('title');
-                            if (courseName) {
-                                h1.textContent = courseName;
-                            }
+                if (h1 && isSectionView) {
+                    // Get course name from breadcrumb
+                    var breadcrumbCourseLink = document.querySelector('.breadcrumb .breadcrumb-item a[title]');
+                    if (breadcrumbCourseLink) {
+                        var courseName = breadcrumbCourseLink.getAttribute('title');
+                        if (courseName) {
+                            h1.textContent = courseName;
                         }
                     }
-                    
-                    // Apply consistent styling with !important to override theme styles
-                    h1.style.setProperty('color', 'white', 'important');
-                    h1.style.setProperty('text-shadow', '2px 2px 4px rgba(0,0,0,0.8)', 'important');
-                    
-                    // Remove theme-specific decorations like underlines
-                    // by hiding ::after and ::before pseudo-elements
-                    var styleId = 'coursebanner-title-style';
-                    if (!document.getElementById(styleId)) {
-                        var style = document.createElement('style');
-                        style.id = styleId;
-                        style.textContent = `
-                            .coursebanner-title-overlay h1::after,
-                            .coursebanner-title-overlay h1::before,
-                            .coursebanner-title-overlay h2::after,
-                            .coursebanner-title-overlay h2::before {
-                                display: none !important;
-                            }
-                        `;
-                        document.head.appendChild(style);
-                    }
                 }
-                
+
                 // Assemble the structure
                 container.appendChild(bannerImg);
                 container.appendChild(titleOverlay);
-                
+
                 // Insert at top of page header
                 pageHeader.insertBefore(container, pageHeader.firstChild);
             }

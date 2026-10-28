@@ -32,11 +32,45 @@
   transition: opacity 0.2s;
 }
 
+[data-bs-theme="dark"] .local-coursebanner-clear-btn {
+  color: #ff8f8f;
+}
+
 .local-coursebanner-clear-btn:hover {
   opacity: 0.7;
 }
 
 .local-coursebanner-clear-btn:focus {
-  outline: 2px solid #0f6cbf;
+  outline: 2px solid currentColor;
   outline-offset: 2px;
+}
+
+/* Course banner title sits over arbitrary image pixels. This scrim guarantees
+   >= 5.7:1 for white text over any image: worst case a pure white image, where the
+   0.6 stop composites to 255 * 0.4 = 102 (L 0.133) -> 5.74:1. */
+.coursebanner-container::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.72) 50%, rgba(0, 0, 0, 0.6) 100%);
+}
+
+.coursebanner-title-overlay {
+  z-index: 1;
+}
+
+.coursebanner-title-overlay h1,
+.coursebanner-title-overlay h2 {
+  /* !important on purpose: must beat theme heading rules, as the old inline styles did. */
+  color: #fff !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8) !important;
+}
+
+.coursebanner-title-overlay h1::before,
+.coursebanner-title-overlay h1::after,
+.coursebanner-title-overlay h2::before,
+.coursebanner-title-overlay h2::after {
+  display: none !important;
 }

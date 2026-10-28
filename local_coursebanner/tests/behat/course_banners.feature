@@ -158,3 +158,20 @@ Feature: Course banners
     When I am on the "TMA1" "course editing" page
     And I expand all fieldsets
     Then "//input[@id='id_local_coursebanner_url']" "xpath_element" should exist
+
+  @javascript
+  Scenario: Banner URL whose image does not load leaves the course header untouched
+    Given the following "categories" exist:
+      | name            | idnumber |
+      | Broken Category | CATB1    |
+    And the following "courses" exist:
+      | fullname      | shortname | category |
+      | Broken Banner | BB1       | CATB1    |
+    And I log in as "admin"
+    When I am on the "BB1" "course editing" page
+    And I expand all fieldsets
+    And I set the field with xpath "//input[@id='id_local_coursebanner_url']" to "https://example.test/missing-banner.png"
+    And I press "Save and display"
+    Then "//*[@id='local-coursebanner-img']" "xpath_element" should exist
+    And "//div[contains(@class, 'coursebanner-container')]" "xpath_element" should not exist
+    And "//div[contains(@class, 'coursebanner-title-overlay')]" "xpath_element" should not exist
