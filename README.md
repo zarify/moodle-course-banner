@@ -99,12 +99,31 @@ Raw SCSS** (the second Raw SCSS field, not **Raw initial SCSS**):
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
+
+// Keep the desktop panels at the same viewport edges as their openers.
+// Boost anchors the open panels from state selectors such as
+// body.limitedwidth:has(#page.drawers.show-drawer-right) .drawer.drawer-right,
+// whose :has() arguments carry two IDs, so plain ID matching cannot outrank them.
+@include media-breakpoint-up(lg) {
+    body:is(.pagelayout-standard, .limitedwidth) #page-wrapper {
+        > #theme_boost-drawers-courseindex {
+            left: 0 !important;
+            right: auto !important;
+        }
+
+        > #theme_boost-drawers-blocks {
+            left: auto !important;
+            right: 0 !important;
+        }
+    }
+}
 /* END Boost drawer edge placement */
 ```
 
 SCSS already in that field is kept, and only the marked block is replaced when the snippet is
-updated. The buttons return to their Moodle 4.5 placement at the screen edges; the drawers
-themselves keep their current width, height, focus handling and open/close behaviour.
+updated. The buttons return to their Moodle 4.5 placement at the screen edges, and the panels they
+open sit at those same edges instead of beside the content card. Panel width, height, focus
+handling and open/close behaviour are unchanged.
 
 ## Banner Image Specifications
 
