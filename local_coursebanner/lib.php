@@ -51,7 +51,7 @@ function local_coursebanner_before_standard_top_of_body_html() {
 
     $bannerheight = (int)get_config('local_coursebanner', 'bannerheight');
     if ($bannerheight < 40) {
-        $bannerheight = 80;
+        $bannerheight = 100;
     }
 
     $data = [

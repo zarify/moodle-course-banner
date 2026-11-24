@@ -31,9 +31,9 @@ $categories = core_course_category::make_categories_list();
 $current = $DB->get_records_menu('local_coursebanner_cat', null, '', 'categoryid,imageurl');
 
 if (data_submitted() && confirm_sesskey()) {
-    $bannerheight = optional_param('bannerheight', 80, PARAM_INT);
+    $bannerheight = optional_param('bannerheight', 100, PARAM_INT);
     if ($bannerheight < 40) {
-        $bannerheight = 80;
+        $bannerheight = 100;
     }
     set_config('bannerheight', $bannerheight, 'local_coursebanner');
 
@@ -81,7 +81,7 @@ if (data_submitted() && confirm_sesskey()) {
 
 $bannerheight = (int)get_config('local_coursebanner', 'bannerheight');
 if ($bannerheight < 40) {
-    $bannerheight = 80;
+    $bannerheight = 100;
 }
 $defaulturl = get_config('local_coursebanner', 'defaulturl');
 

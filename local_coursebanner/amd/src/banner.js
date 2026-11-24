@@ -24,8 +24,8 @@
 define([], function() {
     return {
         init: function(bannerHeight) {
-            // Default to 80px if not provided
-            bannerHeight = bannerHeight || 80;
+            // Default to 100px if not provided
+            bannerHeight = bannerHeight || 100;
 
             // Wait for DOM to be ready
             if (document.readyState === 'loading') {
