@@ -62,6 +62,50 @@ core renders it — no empty banner strip and no recoloured title.
 When a banner does render, the course title is drawn in white over a dark gradient scrim, which
 guarantees at least 5.7:1 contrast for the title text regardless of the image behind it.
 
+#### Boost drawer buttons on Moodle 5.3+
+
+Since [MDL-88411](https://moodle.atlassian.net/browse/MDL-88411) the Boost course-index and
+block-drawer openers are anchored to the content card instead of the screen edges. On a course with
+a banner — and most visibly on the Tiles format, where the banner and course title run the full
+width of the content area — a closed opener is drawn on top of the banner image or the title.
+
+Course Banner only renders the header image: it does not move the drawers or their buttons. To keep
+the openers at the screen edges, append this block to the theme's Raw SCSS and save it under
+**Site administration → Appearance → Themes → Edit theme settings 'Boost' → Advanced settings →
+Raw SCSS** (the second Raw SCSS field, not **Raw initial SCSS**):
+
+```scss
+/* BEGIN Boost drawer edge placement */
+#page.drawers .drawer-toggles .drawer-left-toggle {
+    left: 0 !important;
+    right: auto !important;
+}
+
+#page.drawers .drawer-toggles .drawer-right-toggle {
+    left: auto !important;
+    right: 0 !important;
+}
+
+#page.drawers .drawer-toggles .drawer-toggler > .btn {
+    margin-inline: 0;
+}
+
+#page.drawers .drawer-toggles .drawer-left-toggle > .btn {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+#page.drawers .drawer-toggles .drawer-right-toggle > .btn {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+/* END Boost drawer edge placement */
+```
+
+SCSS already in that field is kept, and only the marked block is replaced when the snippet is
+updated. The buttons return to their Moodle 4.5 placement at the screen edges; the drawers
+themselves keep their current width, height, focus handling and open/close behaviour.
+
 ## Banner Image Specifications
 
 The banner image is displayed at a centrally configurable height (default 80px) with full page width, using CSS `object-fit: cover`.
