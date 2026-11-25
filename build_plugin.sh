@@ -42,11 +42,15 @@ fi
 
 mkdir -p "${AMD_BUILD_DIR}"
 
-echo "Minifying AMD JavaScript..."
+# Pinned to match the toolchain used for the committed amd/build files; bump only when
+# the minified output is regenerated and reviewed.
+TERSER_VERSION="5.51.2"
+
+echo "Minifying AMD JavaScript with terser ${TERSER_VERSION}..."
 for srcfile in "${AMD_SRC_DIR}"/*.js; do
   filename="$(basename "${srcfile}")"
   outfile="${AMD_BUILD_DIR}/${filename%.js}.min.js"
-  npx --yes terser "${srcfile}" --compress --mangle --output "${outfile}"
+  npx --yes "terser@${TERSER_VERSION}" "${srcfile}" --compress --mangle --output "${outfile}"
 done
 
 find "${PLUGIN_DIR}" -name '.DS_Store' -delete
