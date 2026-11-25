@@ -154,4 +154,6 @@ From the repository root, run:
 This will:
 
 1. Minify AMD JavaScript from `amd/src/*.js` into `amd/build/*.min.js`
-2. Create `local_coursebanner.zip` ready for installation
+2. Create `local_coursebanner-<release>-<version>.zip` ready for installation, with the
+   release and version read from `version.php` (for example
+   `local_coursebanner-1.5.2-2026112500.zip`)
