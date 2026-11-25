@@ -59,8 +59,8 @@ The banner is only inserted into the page header once its image has actually loa
 configured URL fails (404, offline host, blocked network), the course header is left exactly as
 core renders it — no empty banner strip and no recoloured title.
 
-When a banner does render, the course title is drawn in white over a dark gradient scrim, which
-guarantees at least 5.7:1 contrast for the title text regardless of the image behind it.
+A dark border and tight shadow have been added around the course header text to improve contrast
+in some scenarios.
 
 #### Boost drawer buttons on Moodle 5.3+
 
